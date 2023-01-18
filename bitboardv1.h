@@ -3,7 +3,7 @@
 #include "types.h"
 
 using U64 = std::bitset<64>;
-class bitboardv1{
+class Bitboardv1{
     U64 pieceBB[14];
     U64 emptyBB;
     U64 ocupiedBB;

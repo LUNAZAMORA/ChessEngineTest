@@ -22,3 +22,8 @@ enum PieceType
    pt_queen  = 6,
    pt_king   = 7,
 };
+
+
+enum Moves{
+    
+};
