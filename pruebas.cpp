@@ -30,7 +30,7 @@ void print_board_repr(){
 int main(){
     print_board_repr();
     U64 WQueen = 0x0;
-    set_bit(WQueen, d4);
+    set_bit(WQueen, c3);
     std::cout << std::hex << WQueen << std::endl;
     std::cout << "Testing function :" << std::endl;
     for(int i = 0; i < 64; i++){
