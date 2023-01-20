@@ -1,5 +1,8 @@
 #include <cassert>
 
+typedef uint64_t  Bitboard; // supported by MSC 13.00+ and C99 
+#define C64(constantU64) constantU64##ULL
+
 enum Color{
     WHITE = 0, 
     BLACK = 1
