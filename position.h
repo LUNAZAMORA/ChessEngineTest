@@ -5,7 +5,7 @@
 
 class Position{
     private: 
-        Bitboardv1 PiecePlacement;
+        BoardV1::Board PiecePlacement;
         Color sideToMove;
     public:
         Color side_to_move()const{}

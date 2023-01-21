@@ -1,8 +1,7 @@
 #include <cassert>
-
+#include <cstdint>
 typedef uint64_t  Bitboard; // supported by MSC 13.00+ and C99 
 #define C64(constantU64) constantU64##ULL
-
 enum Color{
     WHITE = 0, 
     BLACK = 1
@@ -70,6 +69,22 @@ enum Directions{
   noWest = north + west
 };
 
-enum Moves{
-    
+enum KnightDirections {
+  noNorthEast = 17,
+  noNorthWest = 15,
+  noEastEast = 10,
+  noWestWest = 6,
+  soSouthWest = -noNorthEast,
+  soSouthEast = -noNorthWest,
+  soWestWest = -noEastEast,
+  soEastEast = -noWestWest
 };
+
+/*Such a move encoding conveniently fits inside 
+a 16-bit word, 6 bits 
+for from-to square each
+ to index a butterfly board,
+  still leaves a nibble for
+   flags for move kind and 
+   promoted piece code, for instance this arbitrary flags:
+*/
