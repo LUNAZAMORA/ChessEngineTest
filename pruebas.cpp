@@ -40,9 +40,8 @@ void print_board_repr(){
     }
 }
 
-int main(){
 
-    print_board_repr();
+/* 
     Bitboard WQueen = 0x0;
     set_bit(WQueen, c3);
     std::cout << std::hex << (rank_1BB) << std::endl;
@@ -51,6 +50,11 @@ int main(){
     for(int i = 0; i < 64; i++){
         printf("Bit at: %d is: %d\n", i, get_bit_at(rank_1BB , i));
     }
+*/
+int main()
+{
+    print_board_repr();
+    std::cout << "Size of char: " << sizeof(char) << " Size of int: " << sizeof(unsigned long long int) << std::endl;
     return 0;
 }
 

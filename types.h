@@ -1,6 +1,10 @@
 #include <cassert>
 #include <cstdint>
-typedef uint64_t  Bitboard; // supported by MSC 13.00+ and C99 
+
+typedef uint64_t  Bitboard;  
+typedef uint16_t Move;
+
+
 #define C64(constantU64) constantU64##ULL
 enum Color{
     WHITE = 0, 
@@ -25,7 +29,7 @@ enum PieceType
    king   = 7,
 };
 
-enum enumFile {
+enum File {
   A_File = 0,
   B_File = 1,
   C_File = 2,
@@ -37,7 +41,7 @@ enum enumFile {
 };
 
 
-enum enumRank {
+enum Rank {
   Rank_1 = 0,
   Rank_2 = 1,
   Rank_3 = 2,
@@ -47,7 +51,7 @@ enum enumRank {
   Rank_7 = 6,
   Rank_8 = 7,
 };
-enum enumSquare {
+enum Square {
   a1, b1, c1, d1, e1, f1, g1, h1,
   a2, b2, c2, d2, e2, f2, g2, h2,
   a3, b3, c3, d3, e3, f3, g3, h3,
@@ -55,7 +59,8 @@ enum enumSquare {
   a5, b5, c5, d5, e5, f5, g5, h5,
   a6, b6, c6, d6, e6, f6, g6, h6,
   a7, b7, c7, d7, e7, f7, g7, h7,
-  a8, b8, c8, d8, e8, f8, g8, h8
+  a8, b8, c8, d8, e8, f8, g8, h8, 
+  inval
 };
 
 enum Directions{
@@ -87,4 +92,20 @@ for from-to square each
   still leaves a nibble for
    flags for move kind and 
    promoted piece code, for instance this arbitrary flags:
+   the flas are
+   
+   
 */
+
+enum MoveType {
+  NullMove,
+  Normal,
+  Castling = 2 << 12,
+  Promotion = 1 << 15,
+  EnPasseant 
+};
+
+constexpr Move cMove(Square from, Square to, unsigned int flags)
+{
+  return ((flags &  0xf) << 12) | ((from & 0x3f) << 6) | (to & 0x3f);
+}
