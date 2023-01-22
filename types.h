@@ -74,6 +74,14 @@ enum Directions{
   noWest = north + west
 };
 
+constexpr bool squaresOnSameDiagonal(Square sq1, Square sq2) {
+  return ((sq2 - sq1) & 7) == ((sq2>>3) - (sq1>>3));
+}
+
+constexpr bool squaresOnSameAntiDiagonal(Square sq1, Square sq2) {
+  return ((sq2 - sq1) & 7) + ((sq2>>3) - (sq1>>3)) == 0;
+}
+
 enum KnightDirections {
   noNorthEast = 17,
   noNorthWest = 15,
@@ -102,10 +110,25 @@ enum MoveType {
   Normal,
   Castling = 2 << 12,
   Promotion = 1 << 15,
-  EnPasseant 
+  EnPasseant = 5 << 12,
+};
+
+enum MoveFlags {
+  capture_flag = 1 << 14, 
+  ep_capture,
+
 };
 
 constexpr Move cMove(Square from, Square to, unsigned int flags)
 {
-  return ((flags &  0xf) << 12) | ((from & 0x3f) << 6) | (to & 0x3f);
+  return (Move) ((flags &  0xf) << 12) | ((from & 0x3f) << 6) | (to & 0x3f);
 }
+
+
+constexpr Move getTo(Move m) {return m & 0x3f;}
+constexpr Move getFrom(Move m) {return (m >> 6) & 0x3f;}
+constexpr Move getFlags(Move m) {return (m >> 12) & 0x0f;}
+
+constexpr void setTo(Move m, Move to) {m &= ~0x3f; m|= to & 0x3f;}
+constexpr void setFrom(Move m, Move from) {m &= ~0xfc0; m |= (from & 0x3f) << 6;}
+constexpr void set_EP_FLAG(Move m) {}

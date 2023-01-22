@@ -15,7 +15,8 @@ class Position{
     private: 
         BoardV1::Board PiecePlacement;
         Color sideToMove;
-        int CastlingRights;
+        unsigned int CastlingRights;
+        unsigned int halfmoveClock;
     public:
         Color side_to_move()const{}
 };
