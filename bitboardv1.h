@@ -74,5 +74,24 @@ namespace BoardV1{
             U64 getQueen(Color ct) const {return pieceBB[nWhitePawn + ct];}
             U64 getKing(Color ct) const {return pieceBB[nWhiteKnight + ct];}
 
+
+            Bitboard attacksTo(Bitboard occupied, Square sq) {
+                Bitboard knights, kings, bishopsQueens, rooksQueens;
+                knights        = pieceBB[nWhiteKnight] | pieceBB[nBlackKnight];
+                kings          = pieceBB[nWhiteKing]   | pieceBB[nBlackKing];
+                rooksQueens    =
+                bishopsQueens  = pieceBB[nWhiteQueen]  | pieceBB[nBlackQueen];
+                rooksQueens   |= pieceBB[nWhiteRook]   | pieceBB[nBlackRook];
+                bishopsQueens |= pieceBB[nWhiteBishop] | pieceBB[nBlackBishop];
+
+                return (arrPawnAttacks[nWhite][sq] & pieceBB[nBlackPawn])
+                        | (arrPawnAttacks[nBlack][sq] & pieceBB[nWhitePawn])
+                        | (arrKnightAttacks      [sq] & knights)
+                        | (arrKingAttacks        [sq] & kings)
+                        | (bishopAttacks(occupied,sq) & bishopsQueens)
+                        | (rookAttacks  (occupied,sq) & rooksQueens)
+                        ;
+            }
+
     };
 }
